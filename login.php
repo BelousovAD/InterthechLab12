@@ -9,8 +9,9 @@
     <head>
         <title>Авторизация</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
+    <body>
         <form method="post" action="includes/checkLogin.php">
             <label>Логин:</label>
             <input type="text" name="login">

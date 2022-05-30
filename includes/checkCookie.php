@@ -13,7 +13,8 @@
 			"SELECT * FROM `users`
 			WHERE `login`='$login' AND `password`='$password'");
 		mysqli_close($connect);
-		if ($result) {
+		
+		if (mysql_num_rows($result) > 0) {
 			$result = mysqli_fetch_assoc($result);
 			$_SESSION['user'] = [
 				"login" => $result['login'],
@@ -22,6 +23,8 @@
 			
 			setcookie('login', $login, time() + 60 * 5);
 			setcookie('pass', $password, time() + 60 * 5);
+
+			header("location: ../index.php");
 		}
 		else {
 			header("location: ../login.php");

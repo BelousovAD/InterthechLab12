@@ -12,11 +12,10 @@
         $result = mysqli_query($connect,
             "SELECT * FROM `users`
             WHERE `login`='$login' AND `password`='$password'");
-            
+        mysqli_close($connect);
         
-        if (!$result) {
+        if (mysqli_num_rows($result) > 0) {
             $result = mysqli_fetch_assoc($result);
-            mysqli_close($connect);
             $_SESSION['user'] = [
 				"login" => $result['login'],
 				"name" => $result['name']
@@ -28,7 +27,6 @@
             header("location: ../index.php");
         }
         else {
-            mysqli_close($connect);
             $_SESSION['message'] = 'Неверный логин или пароль';
             header('location: ../login.php');
         }

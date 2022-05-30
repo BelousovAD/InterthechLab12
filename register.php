@@ -9,7 +9,7 @@
 	<head>
         <title>Регистрация</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
 		<form method="post" action="includes/checkRegister.php">

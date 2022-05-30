@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if ($_POST['login'] and
         $_POST['password'] and
         $_POST['password_confirm'] and
@@ -17,15 +18,13 @@
                 die('Error connect to DataBase'.mysqli_connect_error());
             }
 
-            $isLoginFree = mysqli_fetch_assoc(mysqli_query($connect,
+            $isLoginFree = mysqli_query($connect,
                 "SELECT * FROM `users`
-                WHERE `login`='$login'"));
-
-            if (!$isLoginFree) {
-                $sql = '';
+                WHERE `login`='$login'");
+            if (mysqli_num_rows($isLoginFree) == 0) {
                 $result = mysqli_query($connect,
                     "INSERT INTO `users`
-                    VALUES ('$login.', '$password', '$name', '$email')");
+                    VALUES ('$login', '$password', '$name', '$email')");
                 if (!$result) {
                     mysqli_close($connect);
                     $_SESSION['message'] = 'Произошла ошибка регистрации пользователя';
@@ -34,11 +33,11 @@
                 else {
                     $result = mysqli_query($connect,
                         "INSERT INTO `menu` (`owner`, `name`, `url`, `pos`)
-                        VALUES('$login', Загрузить, loader.php, 0),
-                        ('$login', Смотреть, main.php, 1),
-                        ('$login', Удалить, editor.php, 2),
-                        ('$login', Поиск, finder.php, 3)");
-                    mysqli_close($connect);
+                        VALUES('$login', 'Загрузить', 'loader.php', '0'),
+                        ('$login', 'Смотреть', 'main.php', '1'),
+                        ('$login', 'Удалить', 'editor.php', '2'),
+                        ('$login', 'Поиск', 'finder.php', '3')");
+                        mysqli_close($connect);
                     if (!$result) {
                         $_SESSION['message'] = 'Произошла ошибка обновления настроек пользователя';
                         header('location: ../register.php');
@@ -50,6 +49,7 @@
                 }
             }
             else {
+                mysqli_close($connect);
                 $_SESSION['message'] = 'Такой логин уже занят';
                 header('location: ../register.php');
             }

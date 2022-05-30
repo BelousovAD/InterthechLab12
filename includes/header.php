@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Лабораторная работа №12</title>
-  <link href="css/style.css" media="screen" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
   <header class="header">
