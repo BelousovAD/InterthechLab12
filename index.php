@@ -1,5 +1,14 @@
-<?php if (empty($_SESSION['login']) or empty($_SESSION['name'])) {
-	header("location:checkCookie.php");
+<!DOCTYPE html>
+<html>
+	<body>
+		<a href="includes/logout.php">Выход</a>;
+	</body>
+</html>
+
+<?php
+	session_start();
+	if (!$_SESSION['user']) {
+	header("location: includes/checkCookie.php");
 } ?>
 
 <?php include("includes/header.php"); ?>
