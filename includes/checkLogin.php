@@ -1,19 +1,22 @@
 <?php
     session_start();
-    if ($_POST['login'] and $_POST['password']) {
-        print_r($login);
+    if (isset($_POST['login']) and isset($_POST['password'])) {
         $login = $_POST['login']; 
         $password = $_POST['password'];
 
-        require_once 'includes/connection.php';
+        $connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
+        if (!$connect) {
+            die('Error connect to DataBase'.mysqli_connect_error());
+        }
 
         $result = mysqli_query($connect,
             "SELECT * FROM `users`
             WHERE `login`='$login' AND `password`='$password'");
-        mysqli_close($connect);
+            
         
         if (!$result) {
             $result = mysqli_fetch_assoc($result);
+            mysqli_close($connect);
             $_SESSION['user'] = [
 				"login" => $result['login'],
 				"name" => $result['name']
@@ -25,6 +28,7 @@
             header("location: ../index.php");
         }
         else {
+            mysqli_close($connect);
             $_SESSION['message'] = 'Неверный логин или пароль';
             header('location: ../login.php');
         }

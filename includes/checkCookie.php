@@ -4,7 +4,10 @@
 		$login = $_COOKIE['login']; 
 		$password = $_COOKIE['pass'];
 
-		require_once 'includes/connection.php';
+		$connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
+        if (!$connect) {
+            die('Error connect to DataBase'.mysqli_connect_error());
+        }
 
 		$result = mysqli_query($connect,
 			"SELECT * FROM `users`

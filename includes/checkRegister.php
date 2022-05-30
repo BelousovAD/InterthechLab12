@@ -12,7 +12,10 @@
         $email = $_POST['email'];
 
         if ($password === $password_confirm) {
-            require_once 'includes/connection.php';
+            $connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
+            if (!$connect) {
+                die('Error connect to DataBase'.mysqli_connect_error());
+            }
 
             $isLoginFree = mysqli_fetch_assoc(mysqli_query($connect,
                 "SELECT * FROM `users`
@@ -31,10 +34,10 @@
                 else {
                     $result = mysqli_query($connect,
                         "INSERT INTO `menu` (`owner`, `name`, `url`, `pos`)
-                        VALUES('$login',\'Загрузить\',\'loader.php\', 0),
-                        ('$login',\'Смотреть\',\'main.php\', 1),
-                        ('$login',\'Удалить\',\'editor.php\', 2),
-                        ('$login',\'Поиск\',\'finder.php\', 3)");
+                        VALUES('$login', Загрузить, loader.php, 0),
+                        ('$login', Смотреть, main.php, 1),
+                        ('$login', Удалить, editor.php, 2),
+                        ('$login', Поиск, finder.php, 3)");
                     mysqli_close($connect);
                     if (!$result) {
                         $_SESSION['message'] = 'Произошла ошибка обновления настроек пользователя';
