@@ -1,34 +1,89 @@
-<!DOCTYPE html>
-<html>
-	<body>
-		<a href="includes/logout.php">Выход</a>;
-	</body>
-</html>
-
 <?php
 	session_start();
 	if (!$_SESSION['user']) {
-	header("location: includes/checkCookie.php");
-} ?>
+		header("location: includes/checkCookie.php");
+	}
 
-<?php include("includes/header.php"); ?>
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/navigation.php');
+?>
 
 <div id="welcome">
 
 	<h1>Главная страница</h1>
-	
-	<form action="" method="POST">
-		<strong>Сортировка</strong><br>
-		Название(<input type="radio" name="name" value="up" />возрастание
-		<input type="radio" name="name" value="down" />убывание)<br>
-		Описание(<input type="radio" name="description" value="up" />возрастание
-		<input type="radio" name="description" value="down" />убывание)<br>
-		<input type="submit" name="sort" value="Сортировать" /><br>
-		<hr>
-	</form>
 
 	<?php
-	if (isset($_GET['id']))
+	$sort_list = array(
+		'login_asc'   => '`login`',
+		'login_desc'  => '`login` DESC',
+		'password_asc'  => '`password`',
+		'password_desc' => '`password` DESC',
+		'name_asc'   => '`name`',
+		'name_desc'  => '`name` DESC',
+		'email_asc'   => '`email`',
+		'email_desc'  => '`email` DESC'
+	);
+
+	$order = "";
+
+	if(isset($_GET['sort'])) {
+		$sort = $_GET['sort'];
+		if (array_key_exists($sort, $sort_list)) {
+			$sort_sql = $sort_list[$sort];
+		} else {
+			$sort_sql = $sort_list['login_asc'];
+		}
+		$order = " ORDER BY '$sort_sql'";
+	}
+	
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
+
+	$result= mysqli_query($connect,
+		"SELECT * FROM `users`".$order);
+	mysqli_close($connect);
+	if (mysqli_num_rows($result) > 0) {
+		$result = mysqli_fetch_assoc($result);
+	}
+
+	function sort_link($title, $asc, $desc) {
+		if(isset($_GET['sort'])) {
+			$sort = $_GET['sort'];
+		
+			if ($sort == $asc) {
+				return '<a class="active" href="?sort='.$desc.'">'.$title.' <i>▲</i></a>';
+			} elseif ($sort == $desc) {
+				return '<a class="active" href="?sort='.$asc.'">'.$title.' <i>▼</i></a>';  
+			} else {
+				return '<a href="?sort='.$asc.'">'.$title.'</a>';  
+			}
+		}
+		return '<a href="?sort='.$asc.'">'.$title.'</a>';  
+	}
+	?>
+
+	<table>
+		<thead>
+			<tr>
+				<th><?php echo sort_link('Логин', 'login_asc', 'login_desc'); ?></th>
+				<th><?php echo sort_link('Пароль', 'password_asc', 'password_desc'); ?></th>
+				<th><?php echo sort_link('Имя', 'name_asc', 'name_desc'); ?></th>
+				<th><?php echo sort_link('E-mail', 'email_asc', 'email_desc'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($result as $row): ?>
+			<tr>
+				<td><?php echo $row['login']; ?></td>
+				<td><?php echo $row['password']; ?></td>
+				<td><?php echo $row['name']; ?></td>
+				<td><?php echo $row['email']; ?></td>
+			</tr>
+			<?php endforeach; ?>    
+		</tbody>
+	</table>
+
+	<?php
+	/*if (isset($_GET['id']))
 		$page = $_GET['id'];
 	else
 		$page = 1;
@@ -87,9 +142,11 @@
 	}
 
 	if ($j > $page && ($page + 2) < $j)
-		echo '<a href="main.php?id=' . ($page + 2) . '"> ></a> &nbsp; ';
+		echo '<a href="main.php?id=' . ($page + 2) . '"> ></a> &nbsp; ';*/
 	?>
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php');
+?>

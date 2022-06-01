@@ -1,10 +1,10 @@
 <?php
     session_start();
-    if ($_POST['login'] and
-        $_POST['password'] and
-        $_POST['password_confirm'] and
-        $_POST['name'] and
-        $_POST['email']
+    if (!empty($_POST['login']) and
+        !empty($_POST['password']) and
+        !empty($_POST['password_confirm']) and
+        !empty($_POST['name']) and
+        !empty($_POST['email'])
         ) {
         $login = $_POST['login'];
         $password = $_POST['password'];
@@ -13,10 +13,7 @@
         $email = $_POST['email'];
 
         if ($password === $password_confirm) {
-            $connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
-            if (!$connect) {
-                die('Error connect to DataBase'.mysqli_connect_error());
-            }
+            require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
             $isLoginFree = mysqli_query($connect,
                 "SELECT * FROM `users`

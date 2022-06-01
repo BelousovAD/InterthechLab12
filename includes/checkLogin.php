@@ -1,13 +1,10 @@
 <?php
     session_start();
-    if (isset($_POST['login']) and isset($_POST['password'])) {
+    if (!empty($_POST['login']) and !empty($_POST['password'])) {
         $login = $_POST['login']; 
         $password = $_POST['password'];
 
-        $connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
-        if (!$connect) {
-            die('Error connect to DataBase'.mysqli_connect_error());
-        }
+        require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
         $result = mysqli_query($connect,
             "SELECT * FROM `users`

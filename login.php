@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['user']) {
+    if (isset($_SESSION['user'])) {
         header('location: index.php');
     }
 ?>
@@ -25,7 +25,7 @@
             </p>
             <button type="submit">Войти</button>
             <?php
-                if ($_SESSION['message']) {
+                if (isset($_SESSION['message'])) {
                     echo '<p class="msg">'.$_SESSION['message'].'</p>';
                 }
                 unset($_SESSION['message']);

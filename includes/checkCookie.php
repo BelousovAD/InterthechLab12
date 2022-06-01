@@ -1,13 +1,10 @@
 <?php
 	session_start();
-	if ($_COOKIE['login'] and $_COOKIE['pass']) {
+	if (!empty($_COOKIE['login']) and !empty($_COOKIE['pass'])) {
 		$login = $_COOKIE['login']; 
 		$password = $_COOKIE['pass'];
 
-		$connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
-        if (!$connect) {
-            die('Error connect to DataBase'.mysqli_connect_error());
-        }
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
 		$result = mysqli_query($connect,
 			"SELECT * FROM `users`

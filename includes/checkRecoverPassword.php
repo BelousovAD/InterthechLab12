@@ -1,21 +1,16 @@
 <?php
-require '/PHPMailer/src/Exception.php';
-require '/PHPMailer/src/PHPMailer.php';
-require '/PHPMailer/src/SMTP.php';
-?>
+    session_start();
+	require_once ($_SERVER['DOCUMENT_ROOT'].'/PHPMailer/src/Exception.php');
+	require_once ($_SERVER['DOCUMENT_ROOT'].'/PHPMailer/src/PHPMailer.php');
+	require_once ($_SERVER['DOCUMENT_ROOT'].'/PHPMailer/src/SMTP.php');
 
-<?php
-    start_session();
-	if ($_POST['login']) {
+	if (!empty($_POST['login'])) {
 		$login = $_POST['login'];
 
-		$connect = mysqli_connect('localhost', 'root', 'root', 'lab12');
-        if (!$connect) {
-            die('Error connect to DataBase'.mysqli_connect_error());
-        }
+		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
-		$result = mysqli_query($link,
-            "SELECT (`password`, `name`, `email`) FROM `users`
+		$result = mysqli_query($connect,
+            "SELECT * FROM `users`
             WHERE `login`='$login'");
             mysqli_close($connect);
 
