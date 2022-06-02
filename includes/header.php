@@ -9,7 +9,7 @@
   <header class="header">
 		<div>
 			<div class="container-list">
-				<h1 class="animation"> Лабораторная работа №1</h1>
+				<h1 class="animation"> Лабораторная работа №12</h1>
         <div>
           Пользователь: <?php echo $_SESSION['user']['name']; ?>
           <a href="includes/logout.php">Выйти</a>

@@ -26,7 +26,7 @@
 			$mail->Host = 'ssl://smtp.yandex.ru';
 			$mail->Port = 465;
 			$mail->Username = 'ya.belousow-lesha2015@yandex.ru';
-			$mail->Password = 'vzqheiinsftmucsc';
+			$mail->Password = '';
 
 			$mail->setFrom('no_reply-lab12@yandex.ru', 'No_reply');
 
