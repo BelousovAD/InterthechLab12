@@ -13,7 +13,7 @@
         $email = $_POST['email'];
 
         if ($password === $password_confirm) {
-            require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
+            require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
             $isLoginFree = mysqli_query($connect,
                 "SELECT * FROM `users`

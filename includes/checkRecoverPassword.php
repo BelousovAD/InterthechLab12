@@ -7,7 +7,7 @@
 	if (!empty($_POST['login'])) {
 		$login = $_POST['login'];
 
-		require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
+		require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
 		$result = mysqli_query($connect,
             "SELECT * FROM `users`

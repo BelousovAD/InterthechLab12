@@ -1,6 +1,6 @@
 <nav class = "navigation">
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
+        require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
         $login = $_SESSION['user']['login'];
 
