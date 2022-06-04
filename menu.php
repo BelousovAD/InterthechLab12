@@ -145,14 +145,14 @@
       <input type="file" name="xml" class="input" value="">
       <input type="submit" name="xmlb" value="Загрузить">
     </form>
-      
+
     <?php if (!empty($mess)) {
       echo "<p>" . "Сообщение: " . $mess . "</p>";
     }
     ?>
 
   </div>
-  
+
 </body>
 
 </html>

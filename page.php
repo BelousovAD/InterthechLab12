@@ -1,30 +1,14 @@
-<?php session_start();
-if (!isset($_COOKIE['session']))
-    header("location:login.php"); ?>
+<?php
+	session_start();
+	if (!$_SESSION['user']) {
+		header("location: index.php");
+	}
 
-<?php include("includes/connection.php"); ?>
+	require ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
+	require ($_SERVER['DOCUMENT_ROOT'].'/includes/navigation.php');
+    echo $_POST['source'];
+?>
 
-<?php include("includes/header.php"); ?>
+<img src="<?php echo $_POST['source']; ?>">
 
-<!doctype html>
-<html>
-
-<head>
-    <title>Редактирование</title>
-</head>
-
-<body>
-    <div id="page">
-        <?php
-        $id = $_GET['id'];
-        $result = mysql_query("SELECT * FROM pics WHERE id = '" . $id . "' ");
-        $row = mysql_fetch_array($result);
-        echo '<h2>Owner:' . $row["owner"] . '</h2>
-    <strong><h1>' . $row["name"] . '</h1></strong>
-        <center><img src="i/' . $row["img"] . '" /></center><br>
-        <h3>' . $row["description"] . '</h3>';
-        ?>
-    </div>
-</body>
-
-<?php include("includes/footer.php"); ?>
+<?php require ($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>
