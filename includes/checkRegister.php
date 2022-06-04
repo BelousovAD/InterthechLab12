@@ -30,8 +30,10 @@
                 else {
                     $result = mysqli_query($connect,
                         "INSERT INTO `menu` (`owner`, `name`, `url`, `pos`)
-                        VALUES('$login', 'Фотогалерея', '', '0'),
-                        ('$login', 'Поиск по БД', '', '1')");
+                        VALUES('$login', 'Главная', 'index.php', '0'),
+                        ('$login', 'Галерея', 'gallery.php', '1'),
+                        ('$login', 'Пользователи', 'users.php', '2'),
+                        ('$login', 'Загрузить изображение', 'upload.php', '3')");
                         mysqli_close($connect);
                     if (!$result) {
                         $_SESSION['message'] = 'Произошла ошибка обновления настроек пользователя';

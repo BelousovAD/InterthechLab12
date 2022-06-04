@@ -1,13 +1,13 @@
 <nav class = "navigation">
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
+        require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
         $login = $_SESSION['user']['login'];
 
         $result = mysqli_query($connect,
             "SELECT * FROM `menu`
             WHERE `owner`='$login'
-            ORDER BY 'pos' ASC");
+            ORDER BY `pos`");
         mysqli_close($connect);
 
         if (mysqli_num_rows($result) > 0)

@@ -72,12 +72,15 @@
 
 		$result = mysqli_query($connect,
 			"SELECT `login` FROM `users`".$find);
-
+		
 		$num_rows = mysqli_num_rows($result);
-
+		
 		if ($num_rows == 0) {
 			mysqli_close($connect);
-			die('<p>Записи в БД отсутствуют</p>');
+			$_SESSION['message'] = 'Записи в БД отсутствуют';
+			unset($_SESSION['query']);
+			header('location: users.php');
+			die;
 		}
 
 		$num_pages = intdiv($num_rows, $num_rows_per_page) + boolval($num_rows % $num_rows_per_page);
@@ -86,12 +89,15 @@
 			"SELECT * FROM `users`".$find.
 			"ORDER BY ".$sort_sql.
 			" LIMIT ".$num_rows_per_page." OFFSET ".$last_row_from_prev_page);
-
+		
 		$num_rows = mysqli_num_rows($result);
 
 		if ($num_rows == 0) {
 			mysqli_close($connect);
-			die('<p>Записи в БД отсутствуют</p>');
+			$_SESSION['message'] = 'Записи в БД отсутствуют';
+			unset($_SESSION['query']);
+			header('location: users.php');
+			die;
 		}
 		mysqli_close($connect);
 
@@ -150,6 +156,12 @@
 			}
 		?>
 	</div>
+	<?php
+		if (isset($_SESSION['message'])) {
+			echo '<p class="msg">'.$_SESSION['message'].'</p>';
+		}
+		unset($_SESSION['message']);
+	?>
 </div>
 
 <?php

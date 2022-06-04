@@ -22,8 +22,15 @@
 
         $result = mysqli_query($connect,
             "DELETE FROM `images` WHERE `id`='$id'");
-        mysqli_close($connect);
-        
-        header('location: ../gallery.php');
+
+        if (!$result) {
+            mysqli_close($connect);
+            die('<p>Записи в БД отсутствуют</p>');
+        }
+        else {
+            mysqli_close($connect);
+            $_SESSION['message'] = 'Запись успешно удалена';
+            header('location: ../gallery.php');
+        }
     }
 ?>
