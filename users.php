@@ -67,7 +67,7 @@
 		if (array_key_exists($sort, $sort_list)) {
 			$sort_sql = $sort_list[$sort];
 		}
-		
+
 		require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
 		$result = mysqli_query($connect,
@@ -105,13 +105,13 @@
 			if(!empty($_GET['sort']) and !empty($_GET['page'])) {
 				$sort = $_GET['sort'];
 				$page = $_GET['page'];
-			
+
 				if ($sort == $asc) {
 					return '<a class="active" href="?sort='.$desc.'&page='.$page.'">'.$title.' <i>▲</i></a>';
 				} elseif ($sort == $desc) {
-					return '<a class="active" href="?sort='.$asc.'&page='.$page.'">'.$title.' <i>▼</i></a>';  
+					return '<a class="active" href="?sort='.$asc.'&page='.$page.'">'.$title.' <i>▼</i></a>';
 				} else {
-					return '<a href="?sort='.$asc.'&page='.$page.'">'.$title.'</a>';  
+					return '<a href="?sort='.$asc.'&page='.$page.'">'.$title.'</a>';
 				}
 			}
 			return '<a href="?sort='.$asc.'&page=1">'.$title.'</a>';
@@ -123,7 +123,7 @@
 		<button type="submit" name="find">Найти</button>
 	</form>
 
-	<table>
+	<table class="table_style_default">
 		<thead>
 			<tr>
 				<th><?php echo sort_link('Логин', 'login_asc', 'login_desc'); ?></th>
@@ -143,14 +143,16 @@
 			<?php endwhile; ?>
 		</tbody>
 	</table>
-	<div>
+	<div class="page_stat-button">
+		<span class="page_name">Страница:</span>
+		<br>
 		<?php
 			if ($page != 1) {
-				echo '<a href="users.php?sort='.$sort.'&page='.($page - 1).'"> < </a>';
+				echo '<a href="users.php?sort='.$sort.'&page='.($page - 1).'" class="page_button">Предыдущая</a>';
 			}
-			echo $page.'/'.$num_pages;
+			echo ' '.$page.'/'.$num_pages.' ';
 			if ($page != $num_pages) {
-				echo '<a href="users.php?sort='.$sort.'&page='.($page + 1).'"> > </a>';
+				echo '<a href="users.php?sort='.$sort.'&page='.($page + 1).'" class="page_button">Следующая</a>';
 			}
 		?>
 	</div>
