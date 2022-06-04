@@ -77,7 +77,10 @@
 		
 		if ($num_rows == 0) {
 			mysqli_close($connect);
-			die('<p>Записи в БД отсутствуют</p>');
+			$_SESSION['message'] = 'Записи в БД отсутствуют';
+			unset($_SESSION['query']);
+			header('location: gallery.php');
+			die;
 		}
 
 		$num_pages = intdiv($num_rows, $num_rows_per_page) + boolval($num_rows % $num_rows_per_page);
@@ -91,7 +94,10 @@
 
 		if ($num_rows == 0) {
 			mysqli_close($connect);
-			die('<p>Записи в БД отсутствуют</p>');
+			$_SESSION['message'] = 'Записи в БД отсутствуют';
+			unset($_SESSION['query']);
+			header('location: gallery.php');
+			die;
 		}
 		mysqli_close($connect);
 
@@ -112,7 +118,7 @@
 		}
 	?>
 
-	<form method="POST" action="index.php">
+	<form method="POST" action="gallery.php">
 		<input type="text" name="query" placeholder="Поиск">
 		<button type="submit" name="find">Найти</button>
 	</form>
@@ -136,7 +142,7 @@
 				<td><?php echo $row['name']; ?></td>
 				<td><?php echo $row['description']; ?></td>
                 <td><?php echo $_SESSION['user']['login'] == $row['owner'] ? 'Вы' : $row['owner']; ?></td>
-				<td><form action="page.php" method="POST">
+				<td><form action="page.php" method="GET">
                         <button type="submit" name="source" value="<?php echo $row['original']; ?>">Оригинал</button>
                         <button type="submit" name="source" value="<?php echo $row['marked']; ?>">WaterMark</button>
                     </form>
@@ -161,6 +167,12 @@
 			}
 		?>
 	</div>
+	<?php
+		if (isset($_SESSION['message'])) {
+			echo '<p class="msg">'.$_SESSION['message'].'</p>';
+		}
+		unset($_SESSION['message']);
+	?>
 </div>
 
 <?php

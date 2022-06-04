@@ -6,9 +6,8 @@
 
 	require ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php');
 	require ($_SERVER['DOCUMENT_ROOT'].'/includes/navigation.php');
-    echo $_POST['source'];
 ?>
 
-<img src="<?php echo $_POST['source']; ?>">
+<img src="<?php echo $_GET['source']; ?>">
 
 <?php require ($_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'); ?>

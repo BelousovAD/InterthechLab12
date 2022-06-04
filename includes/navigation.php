@@ -7,7 +7,7 @@
         $result = mysqli_query($connect,
             "SELECT * FROM `menu`
             WHERE `owner`='$login'
-            ORDER BY 'pos' ASC");
+            ORDER BY `pos`");
         mysqli_close($connect);
 
         if (mysqli_num_rows($result) > 0)
