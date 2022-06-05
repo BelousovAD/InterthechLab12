@@ -45,7 +45,7 @@ $mail->isHTML(true);
 $mail->Body = '<strong>Логин: '.$login.'<br>Пароль: '.$result['password'].'</strong>';
 			if (!$mail->send()) {
 				$_SESSION['message'] = 'Ошибка при отправке. Ошибка:'.$mail->ErrorInfo;
-                //header('location: ../recoverPassword.php');
+                header('location: ../recoverPassword.php');
 			}
 			else {
 				$_SESSION['message'] = 'На ваш почтовый ящик было отправлено письмо с паролем';
