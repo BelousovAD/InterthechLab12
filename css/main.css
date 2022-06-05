@@ -41,6 +41,8 @@ button {
     padding: 10px;
     text-align: center;
     font-weight: bold;
+    margin: auto;
+    width: 250px;
 }
 
 .logout {

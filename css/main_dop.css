@@ -82,6 +82,7 @@
 
 .table_style_default thead {
   background-color: #BB8FCE;
+  text-transform: uppercase;
 }
 
 .table_style_default tbody {
@@ -116,10 +117,64 @@
 .page_button {
   border: 1px solid black;
   padding: 5px;
-  background-color: #E8DAEF;
+  background-color: #E8DAEF;/*#cfb1de;*/
+  transition: background-color 0.5s;
+}
+.page_button:hover {
+  background-color: #9c61b8;
 }
 
 .page_stat-button {
   text-align: center;
   margin: auto;
+}
+
+.main_page_site {
+  text-align: center;
+}
+
+.main_page_site_discription {
+   margin-top: 200px;
+}
+
+.gallery_img {
+  width: 220px;
+}
+
+.search {
+  text-align: center;
+  padding: 15px;
+}
+
+.search_input {
+  border-radius: 30px;
+  height: 30px;
+}
+
+.menu_input {
+  border-radius: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.page_div {
+  text-align: center;
+}
+
+.page_img {
+  max-width: 1000px;
+}
+
+.menu_page {
+  margin-top: 20px;
+}
+
+.upload_input {
+  border-radius: 30px; 
+}
+
+.upload_input_file {
+  margin: auto;
+  margin-bottom: 10px;
 }

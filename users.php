@@ -72,9 +72,9 @@
 
 		$result = mysqli_query($connect,
 			"SELECT `login` FROM `users`".$find);
-		
+
 		$num_rows = mysqli_num_rows($result);
-		
+
 		if ($num_rows == 0) {
 			mysqli_close($connect);
 			$_SESSION['message'] = 'Записи в БД отсутствуют';
@@ -89,7 +89,7 @@
 			"SELECT * FROM `users`".$find.
 			"ORDER BY ".$sort_sql.
 			" LIMIT ".$num_rows_per_page." OFFSET ".$last_row_from_prev_page);
-		
+
 		$num_rows = mysqli_num_rows($result);
 
 		if ($num_rows == 0) {
@@ -118,9 +118,9 @@
 		}
 	?>
 
-	<form method="POST" action="users.php">
-		<input type="text" name="query" placeholder="Поиск">
-		<button type="submit" name="find">Найти</button>
+	<form method="POST" action="users.php" class="search">
+		<input type="text" name="query" placeholder="Поиск" class="search_input">
+		<button type="submit" name="find" class="page_button">Найти</button>
 	</form>
 
 	<table class="table_style_default">

@@ -8,7 +8,7 @@
 	require ($_SERVER['DOCUMENT_ROOT'].'/includes/navigation.php');
 ?>
 
-<div id="welcome">
+<div class="gallery">
 
 	<?php
 		$sort_list = array(
@@ -67,14 +67,14 @@
 		if (array_key_exists($sort, $sort_list)) {
 			$sort_sql = $sort_list[$sort];
 		}
-		
+
 		require ($_SERVER['DOCUMENT_ROOT'].'/includes/connect.php');
 
 		$result = mysqli_query($connect,
 			"SELECT `id` FROM `images`".$find);
-		
+
 		$num_rows = mysqli_num_rows($result);
-		
+
 		if ($num_rows == 0) {
 			mysqli_close($connect);
 			$_SESSION['message'] = 'Записи в БД отсутствуют';
@@ -89,7 +89,7 @@
 			"SELECT * FROM `images`".$find.
 			"ORDER BY ".$sort_sql.
 			" LIMIT ".$num_rows_per_page." OFFSET ".$last_row_from_prev_page);
-		
+
 		$num_rows = mysqli_num_rows($result);
 
 		if ($num_rows == 0) {
@@ -105,25 +105,27 @@
 			if(!empty($_GET['sort']) and !empty($_GET['page'])) {
 				$sort = $_GET['sort'];
 				$page = $_GET['page'];
-			
+
 				if ($sort == $asc) {
 					return '<a class="active" href="?sort='.$desc.'&page='.$page.'">'.$title.' <i>▲</i></a>';
 				} elseif ($sort == $desc) {
-					return '<a class="active" href="?sort='.$asc.'&page='.$page.'">'.$title.' <i>▼</i></a>';  
+					return '<a class="active" href="?sort='.$asc.'&page='.$page.'">'.$title.' <i>▼</i></a>';
 				} else {
-					return '<a href="?sort='.$asc.'&page='.$page.'">'.$title.'</a>';  
+					return '<a href="?sort='.$asc.'&page='.$page.'">'.$title.'</a>';
 				}
 			}
 			return '<a href="?sort='.$asc.'&page=1">'.$title.'</a>';
 		}
 	?>
 
-	<form method="POST" action="gallery.php">
-		<input type="text" name="query" placeholder="Поиск">
-		<button type="submit" name="find">Найти</button>
+	<form method="POST" action="gallery.php" class="search">
+		<div class="search_div">
+			<input type="text" name="query" placeholder="Поиск" class="search_input">
+			<button type="submit" name="find" class="page_button">Найти</button>
+		</div>
 	</form>
 
-	<table>
+	<table class="table_style_default">
 		<thead>
 			<tr>
                 <th><?php echo sort_link('№', 'id_asc', 'id_desc'); ?></th>
@@ -138,17 +140,17 @@
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['id']; ?></td>
-                <td><?php echo '<img src="'.$row['marked_little'].'">'; ?></td>
+                <td><?php echo '<img src="'.$row['marked_little'].'" class="gallery_img">'; ?></td>
 				<td><?php echo $row['name']; ?></td>
 				<td><?php echo $row['description']; ?></td>
                 <td><?php echo $_SESSION['user']['login'] == $row['owner'] ? 'Вы' : $row['owner']; ?></td>
 				<td><form action="page.php" method="GET">
-                        <button type="submit" name="source" value="<?php echo $row['original']; ?>">Оригинал</button>
-                        <button type="submit" name="source" value="<?php echo $row['marked']; ?>">WaterMark</button>
+                        <button type="submit" name="source" value="<?php echo $row['original']; ?>" class="page_button">Оригинал</button>
+                        <button type="submit" name="source" value="<?php echo $row['marked']; ?>" class="page_button">WaterMark</button>
                     </form>
                     <?php echo $_SESSION['user']['login'] == $row['owner'] ?
-                        '<form action="includes/checkDelete.php" method="POST">                        
-                            <button type="submit" name="delete" value="'.$row['id'].'">Удалить</button>
+                        '<form action="includes/checkDelete.php" method="POST">
+                            <button type="submit" name="delete" value="'.$row['id'].'" class="page_button">Удалить</button>
                         </form>' : '';
                     ?>
                 </td>
@@ -156,14 +158,16 @@
 			<?php endwhile; ?>
 		</tbody>
 	</table>
-	<div>
+	<div class="page_stat-button">
+		<span class="page_name">Страница:</span>
+		<br>
 		<?php
 			if ($page != 1) {
-				echo '<a href="gallery.php?sort='.$sort.'&page='.($page - 1).'"> < </a>';
+				echo '<a href="gallery.php?sort='.$sort.'&page='.($page - 1).'" class="page_button">Предыдущая</a>';
 			}
 			echo $page.'/'.$num_pages;
 			if ($page != $num_pages) {
-				echo '<a href="gallery.php?sort='.$sort.'&page='.($page + 1).'"> > </a>';
+				echo '<a href="gallery.php?sort='.$sort.'&page='.($page + 1).'" class="page_button">Следующая</a>';
 			}
 		?>
 	</div>
