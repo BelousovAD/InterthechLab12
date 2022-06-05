@@ -52,6 +52,7 @@
             </form>
           </tr>
         <?php endwhile; ?>
+				<?php if($num_rows < 9):  ?>
         <tr>
           <form action="includes/checkUpdate.php" method="POST">
             <td></td>
@@ -60,6 +61,7 @@
             <td><button type="submit" name="add" value="<?php echo $num_rows; ?>" class="page_button">Добавить</button></td>
           </form>
         </tr>
+			<?php endif; ?>
       </tbody>
     </table>
     <?php

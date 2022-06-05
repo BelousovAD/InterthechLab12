@@ -165,7 +165,7 @@
 			if ($page != 1) {
 				echo '<a href="gallery.php?sort='.$sort.'&page='.($page - 1).'" class="page_button">Предыдущая</a>';
 			}
-			echo $page.'/'.$num_pages;
+			echo ' '.$page.'/'.$num_pages.' ';
 			if ($page != $num_pages) {
 				echo '<a href="gallery.php?sort='.$sort.'&page='.($page + 1).'" class="page_button">Следующая</a>';
 			}

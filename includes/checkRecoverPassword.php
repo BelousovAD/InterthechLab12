@@ -27,8 +27,8 @@
 
 			$mail->Host = 'smtp.yandex.ru';
         $mail->SMTPAuth = true;
-      $mail->Username = 'zhelamskije@yandex.ru';//'sfuuu@yandex.ru';
-      $mail->Password = 'wanhicbtvyqlmkzd';//'ricegruubcyxpkvr';
+      $mail->Username = 'zhelamskije@yandex.ru';
+      $mail->Password = '';
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 			$mail->Port = 465;//25 465 587
 
@@ -45,7 +45,7 @@ $mail->isHTML(true);
 $mail->Body = '<strong>Логин: '.$login.'<br>Пароль: '.$result['password'].'</strong>';
 			if (!$mail->send()) {
 				$_SESSION['message'] = 'Ошибка при отправке. Ошибка:'.$mail->ErrorInfo;
-                header('location: ../recoverPassword.php');
+                //header('location: ../recoverPassword.php');
 			}
 			else {
 				$_SESSION['message'] = 'На ваш почтовый ящик было отправлено письмо с паролем';

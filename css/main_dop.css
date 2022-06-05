@@ -61,10 +61,11 @@
   background-color: #96BFB5;
   text-align: center;
   padding: 15px;
+  margin-bottom: 10px;
 }
 
 .nav_buttons {
-  margin: 0px 50px;
+  margin: 0px 10px;
   transition: font-size 0.5s;
 }
 
@@ -134,7 +135,7 @@
 }
 
 .main_page_site_discription {
-   margin-top: 200px;
+   margin-top: 150px;
 }
 
 .gallery_img {
@@ -171,10 +172,14 @@
 }
 
 .upload_input {
-  border-radius: 30px; 
+  border-radius: 30px;
 }
 
 .upload_input_file {
   margin: auto;
   margin-bottom: 10px;
+}
+
+.form_xml {
+  width: 400px;
 }
